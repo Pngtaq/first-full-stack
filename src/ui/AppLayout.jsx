@@ -7,11 +7,9 @@ function AppLayout() {
     <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
 
-      <div className="">
-        <main className="mx-auto my-5 max-w-3xl">
-          <Outlet />
-        </main>
-      </div>
+      <main className="mx-auto my-5 max-w-3xl">
+        <Outlet />
+      </main>
 
       <Footer />
     </div>

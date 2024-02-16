@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "./ui/AppLayout";
 
-import Homepage from "./pages/Homepage";
+import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -15,8 +15,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<Navigate replace to="homepage" />} />
-          <Route path="homepage" element={<Homepage />} />
+          <Route index element={<Navigate replace to="home" />} />
+          <Route path="home" element={<Home />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
