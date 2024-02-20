@@ -8,6 +8,7 @@ import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Services from "./pages/Services";
+import Cart from "./pages/Cart";
 
 import Register from "./pages/Register";
 import PageNotFound from "./pages/PageNotFound";
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<Navigate replace to="home" />} />
           <Route path="home" element={<Home />} />
           <Route path="menu" element={<Menu />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="services" element={<Services />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="about" element={<About />} />

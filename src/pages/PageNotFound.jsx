@@ -1,7 +1,7 @@
 function PageNotFound() {
   return (
     <div>
-      <h1>Can' t be reach</h1>
+      <h1>Gago wrong page</h1>
     </div>
   );
 }

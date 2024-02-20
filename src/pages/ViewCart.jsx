@@ -1,14 +1,15 @@
 import { NavLink } from "react-router-dom";
+import Button from "../ui/Button";
 
 function ViewCart() {
   return (
-    <div className="flex items-center justify-around py-2 uppercase border-t-4 border-amber-300 font-bold ">
+    <div className="flex items-center justify-around py-2 uppercase font-bold fixed bottom-0 left-0 bg-amber-300 w-full">
       <p>
         Your total is: <span>$$$</span>
       </p>
-      <NavLink className="flex items-center">
+      <Button className="viewCart" to="/cart">
         View cart <span className="text-2xl pl-8">&rarr;</span>
-      </NavLink>
+      </Button>
     </div>
   );
 }
