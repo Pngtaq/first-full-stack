@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
 
 import Home from "./pages/Home";
+import Menu from "./pages/Menu";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -18,6 +19,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route index element={<Navigate replace to="home" />} />
           <Route path="home" element={<Home />} />
+          <Route path="menu" element={<Menu />} />
           <Route path="services" element={<Services />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="about" element={<About />} />

@@ -1,20 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
 
 function Home() {
   return (
-    <div className="text-center space-y-2">
-      <h1>WELCOME TO [COMPANY NAME]</h1>
-      <h3 className="pb-10">
-        THE MOST FRIENDLY WEBSITE WHICH WILL HELP YOU TO akjfhkj hkajh
-        kjhdakjhfk jahj khj hakjdshfdkjahf jadfkha
+    <div className="text-center space-y-8 text-2xl px-10 py-10 ">
+      <h1 className="text-3xl text-bold">"Welcome to Feeding Frenzy"</h1>
+      <h3>
+        Dive into a world of culinary delights as we explore the rich tapestry
+        of flavors, aromas, and textures that make up the vibrant landscape of
+        food.
       </h3>
 
-      <Link
-        to="/services"
-        className="border-amber-400 border-2 px-4 py-2 rounded-md"
-      >
-        go to [page you want to go to]
-      </Link>
+      <div>
+        <Button to="/menu" className="secondary">
+          GO TO MENU
+        </Button>
+      </div>
     </div>
   );
 }

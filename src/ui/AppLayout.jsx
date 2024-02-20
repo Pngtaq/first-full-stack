@@ -3,12 +3,13 @@ import Header from "./Header";
 
 function AppLayout() {
   return (
-    <div className="grid h-screen grid-rows-[auto_1fr]">
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-amber-100">
       <Header />
-
-      <main className="mx-auto my-5 max-w-4xl">
-        <Outlet />
-      </main>
+      <div className="scroll-auto">
+        <main className="mx-auto my-5 max-w-4xl">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

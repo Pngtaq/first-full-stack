@@ -1,11 +1,17 @@
 import { NavLink } from "react-router-dom";
+import Button from "./Button";
 
 function Header() {
   return (
-    <header className="flex items-center justify-around border-b-2 py-5 bg-orange-400 font-semibold uppercase text-xl">
-      <NavLink to="home">Company name</NavLink>
+    <header className="flex items-center justify-around  py-4 uppercase border-b-4 border-amber-300">
+      <NavLink to="home" className="font-semibold flex items-center">
+        <img src="../public/images/pizza.png" alt="logo" className="w-8" />
+        <span>Feeding Frenzy</span>
+      </NavLink>
 
-      <NavLink to="login">Login</NavLink>
+      <Button to="login" className="secondary">
+        Login
+      </Button>
     </header>
   );
 }
