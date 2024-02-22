@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import ViewCart from "../pages/ViewCart";
 
 function AppLayout() {
   return (
