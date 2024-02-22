@@ -1,25 +1,28 @@
+import { usePizza } from "../../contexts/pizzaContext";
+
 import { useState } from "react";
 import Button from "../../ui/Button";
 
 function MenuItems({ data }) {
+  const { addAmountPizza, reduceAmountPizza } = usePizza();
+  const [perPizza, setPerPizza] = useState(0);
   const { name, regularPrice, toppings, image, id } = data;
-  let [quantity, setQuantity] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
 
+  function handleReduceQuantity() {
+    if (perPizza <= 1) setIsAdded(false);
+    setPerPizza((pizzaQuantity) => pizzaQuantity - 1);
+    reduceAmountPizza();
+  }
+  function handleAddQuantity() {
+    setPerPizza((pizzaQuantity) => pizzaQuantity + 1);
+    addAmountPizza();
+  }
+
   function addToCart() {
-    setQuantity((quantity) => quantity + 1);
+    setPerPizza((pizzaQuantity) => pizzaQuantity + 1);
+    addAmountPizza();
     setIsAdded(true);
-  }
-
-  function increaseQuantity() {
-    setQuantity((quantity) => quantity + 1);
-  }
-  function decreaseQuantity() {
-    if (quantity > 0) {
-      setQuantity((quantity) => quantity - 1);
-    }
-
-    if (quantity === 1) setIsAdded(false);
   }
 
   return (
@@ -39,11 +42,11 @@ function MenuItems({ data }) {
         </Button>
         {isAdded && (
           <div className="pb-3 flex items-center">
-            <Button className="tertiary" onClick={decreaseQuantity}>
+            <Button className="tertiary" onClick={handleReduceQuantity}>
               -
             </Button>
-            <div className="px-2">{quantity}</div>
-            <Button className="tertiary" onClick={increaseQuantity}>
+            <div className="px-2">{perPizza}</div>
+            <Button className="tertiary" onClick={handleAddQuantity}>
               +
             </Button>
           </div>

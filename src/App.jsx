@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { PizzaProvider } from "./contexts/pizzaContext";
 
 import AppLayout from "./ui/AppLayout";
 
@@ -24,24 +25,26 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="home" />} />
-            <Route path="home" element={<Home />} />
-            <Route path="menu" element={<Menu />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="services" element={<Services />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
-          </Route>
-          <Route path="register" element={<Register />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <PizzaProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<Navigate replace to="home" />} />
+              <Route path="home" element={<Home />} />
+              <Route path="menu" element={<Menu />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="services" element={<Services />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="about" element={<About />} />
+              <Route path="login" element={<Login />} />
+            </Route>
+            <Route path="register" element={<Register />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </PizzaProvider>
   );
 }
 

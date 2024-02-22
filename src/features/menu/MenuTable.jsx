@@ -14,7 +14,7 @@ function MenuTable() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-1 gap-2 px-4 mb-16 min-[500px]:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 px-4 mb-16 sm:grid-cols-2 md:grid-cols-3">
           {data.map((data) => (
             <MenuItems data={data} key={data.id} />
           ))}
