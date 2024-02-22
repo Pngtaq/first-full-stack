@@ -6,7 +6,7 @@ function Header() {
     <header className="flex items-center justify-around py-2 uppercase border-b-4 border-amber-300">
       <NavLink to="home" className="font-semibold flex items-center">
         <img src="../public/images/pizza.png" alt="logo" className="w-8" />
-        <span>Feeding Frenzy</span>
+        <span>Pizza Mania</span>
       </NavLink>
       <div id="header-services" className="space-x-8 hidden sm:block">
         <Button to="/menu" className="header">
