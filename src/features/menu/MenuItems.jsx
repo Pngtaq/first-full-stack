@@ -4,24 +4,25 @@ import { useState } from "react";
 import Button from "../../ui/Button";
 
 function MenuItems({ data }) {
-  const { addAmountPizza, reduceAmountPizza } = usePizza();
-  const [perPizza, setPerPizza] = useState(0);
   const { name, regularPrice, toppings, image, id } = data;
+  const { addAmountPizza, reduceAmountPizza } = usePizza();
+  const [pizzaQuantity, setPizzaQuantity] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
 
   function handleReduceQuantity() {
-    if (perPizza <= 1) setIsAdded(false);
-    setPerPizza((pizzaQuantity) => pizzaQuantity - 1);
-    reduceAmountPizza();
+    if (pizzaQuantity <= 1) setIsAdded(false);
+    setPizzaQuantity((pizzaQuantity) => pizzaQuantity - 1);
+
+    reduceAmountPizza(regularPrice);
   }
   function handleAddQuantity() {
-    setPerPizza((pizzaQuantity) => pizzaQuantity + 1);
-    addAmountPizza();
+    setPizzaQuantity((pizzaQuantity) => pizzaQuantity + 1);
+    addAmountPizza(regularPrice);
   }
 
   function addToCart() {
-    setPerPizza((pizzaQuantity) => pizzaQuantity + 1);
-    addAmountPizza();
+    setPizzaQuantity((pizzaQuantity) => pizzaQuantity + 1);
+    addAmountPizza(regularPrice);
     setIsAdded(true);
   }
 
@@ -45,7 +46,7 @@ function MenuItems({ data }) {
             <Button className="tertiary" onClick={handleReduceQuantity}>
               -
             </Button>
-            <div className="px-2">{perPizza}</div>
+            <div className="px-2">{pizzaQuantity}</div>
             <Button className="tertiary" onClick={handleAddQuantity}>
               +
             </Button>
