@@ -1,30 +1,45 @@
 import { usePizza } from "../../contexts/pizzaContext";
 
-import { useState } from "react";
 import Button from "../../ui/Button";
 
 function MenuItems({ data }) {
   const { name, regularPrice, toppings, image, id } = data;
-  const { addAmountPizza, reduceAmountPizza } = usePizza();
-  const [pizzaQuantity, setPizzaQuantity] = useState(0);
-  const [isAdded, setIsAdded] = useState(false);
+  const pizzaData = {
+    id,
+    name,
+    unitPrice: regularPrice,
+    quantity: 1,
+    totalPrice: 0,
+  };
+
+  const { cart, dispatch, isAdded } = usePizza();
+  // const pizzaIndex = cart.findIndex((pizza) => pizza.id === id);
+  const isOpen = isAdded(id) > 0;
+
+  function handleAddToCart() {
+    dispatch({ type: "menu/addToCart", payload: pizzaData });
+  }
+
+  function handleAddQuantity() {
+    dispatch({ type: "menu/addQuantity", payload: id });
+  }
 
   function handleReduceQuantity() {
-    if (pizzaQuantity <= 1) setIsAdded(false);
-    setPizzaQuantity((pizzaQuantity) => pizzaQuantity - 1);
+    dispatch({ type: "menu/reduceQuantity", payload: id });
 
-    reduceAmountPizza(regularPrice);
-  }
-  function handleAddQuantity() {
-    setPizzaQuantity((pizzaQuantity) => pizzaQuantity + 1);
-    addAmountPizza(regularPrice);
+    dispatch({ type: "menu/removeZeroQuantity" });
   }
 
-  function addToCart() {
-    setPizzaQuantity((pizzaQuantity) => pizzaQuantity + 1);
-    addAmountPizza(regularPrice);
-    setIsAdded(true);
+  function handleDeletePizza() {
+    dispatch({ type: "menu/deletePizza", payload: id });
+    dispatch({ type: "menu/removeZeroQuantity" });
   }
+  // function handleReduceQuantity() {
+  //   // const pizzaIndex = cart.findIndex((pizza) => pizza.id === id);
+  //   dispatch({ type: "menu/reduceQuantity", payload: id });
+  // }
+
+  const pizzaQuantity = cart?.find((pizza) => pizza.id === id)?.quantity ?? 0;
 
   return (
     <div className="border-2 border-amber-300 rounded-md px-4 py-2  flex flex-col  ">
@@ -38,17 +53,22 @@ function MenuItems({ data }) {
       </div>
 
       <div className="flex gap-2 justify-center items-end h-full">
-        <Button className="primary" onClick={addToCart}>
-          Add to cart
-        </Button>
-        {isAdded && (
-          <div className="pb-3 flex items-center">
+        {!isOpen && (
+          <Button className="primary" onClick={handleAddToCart}>
+            Add to cart
+          </Button>
+        )}
+        {isOpen && (
+          <div className="pb-3 flex items-center space-x-2">
             <Button className="tertiary" onClick={handleReduceQuantity}>
               -
             </Button>
-            <div className="px-2">{pizzaQuantity}</div>
+            <div>{pizzaQuantity}</div>
             <Button className="tertiary" onClick={handleAddQuantity}>
               +
+            </Button>
+            <Button className="tertiary" onClick={handleDeletePizza}>
+              Delete
             </Button>
           </div>
         )}

@@ -1,74 +1,70 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const PizzaContext = createContext();
 
 const initialState = {
-  price: [],
-  discount: 0,
-  total: 0,
-  error: "",
-  quantity: 0,
+  cart: [
+    // id,
+    // name,
+    // unitPrice: regularPrice,
+    // quantity: 1,
+    // totalPrice: 0,
+  ],
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "menu/increase":
+    case "menu/addToCart":
+      return { cart: [...state.cart, action.payload] };
+    case "menu/addQuantity":
       return {
-        ...state,
-        quantity: state.quantity + action.payload,
-        total: state.price.reduce((acc, cur) => acc + cur, 0),
+        cart: state.cart.map((pizza) => {
+          if (pizza.id !== action.payload) return { ...pizza };
+          return { ...pizza, quantity: pizza.quantity++ };
+        }),
       };
-    case "menu/reduce":
-      console.log(state.price);
+    case "menu/reduceQuantity":
+      // const filteredPeople = cart?.filter((item) => item.id !== action.payload);
       return {
-        ...state,
-        quantity: state.quantity - action.payload,
-        total: state.price.reduce((acc, cur) => acc + cur, 0),
+        cart: state.cart.map((pizza) => {
+          if (pizza.id !== action.payload) {
+            return pizza;
+          }
+
+          if (pizza.quantity > 0) {
+            return { ...pizza, quantity: pizza.quantity - 1 };
+          }
+
+          // If quantity is already 0, return the same pizza object
+          return pizza;
+        }),
       };
-    case "menu/total":
+    case "menu/removeZeroQuantity":
       return {
-        ...state,
-        total: [action.payload].reduce((acc, cur) => acc + cur, 0),
+        cart: state.cart.filter((pizza) => {
+          if (pizza.quantity !== 0) return pizza;
+        }),
       };
 
-    case "rejected":
-      return { ...state, error: action.payload };
-    default:
-      throw new Error("Unkown action type.");
+    case "menu/delete":
+      return {
+        cart: state.cart.map((pizza) => {
+          return { ...pizza, quantity: 0 };
+        }),
+      };
   }
 }
 
 function PizzaProvider({ children }) {
-  const [{ price, discount, total, quantity }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ cart }, dispatch] = useReducer(reducer, initialState);
 
-  function addAmountPizza(pizzaPrice) {
-    price.push(pizzaPrice);
-    dispatch({ type: "menu/total", payload: pizzaPrice });
-
-    dispatch({ type: "menu/increase", payload: 1 });
+  function isAdded(id) {
+    return cart.find((pizza) => pizza.id === id)?.quantity ?? 0;
   }
-
-  function reduceAmountPizza(pizzaPrice) {
-    const index = price.indexOf(pizzaPrice);
-    const newArray = price.splice(index, 1);
-    dispatch({ type: "menu/total", pizzaPrice });
-    dispatch({ type: "menu/reduce", payload: 1 });
-  }
+  console.log(cart);
 
   return (
-    <PizzaContext.Provider
-      value={{
-        price,
-        quantity,
-        discount,
-        total,
-        addAmountPizza,
-        reduceAmountPizza,
-      }}
-    >
+    <PizzaContext.Provider value={{ cart, dispatch, isAdded }}>
       {children}
     </PizzaContext.Provider>
   );
