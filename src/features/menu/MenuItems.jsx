@@ -18,21 +18,25 @@ function MenuItems({ data }) {
 
   function handleAddToCart() {
     dispatch({ type: "menu/addToCart", payload: pizzaData });
+    dispatch({ type: "menu/TotalPrice", payload: id });
   }
 
   function handleAddQuantity() {
     dispatch({ type: "menu/addQuantity", payload: id });
+    dispatch({ type: "menu/TotalPrice", payload: id });
   }
 
   function handleReduceQuantity() {
     dispatch({ type: "menu/reduceQuantity", payload: id });
 
     dispatch({ type: "menu/removeZeroQuantity" });
+    dispatch({ type: "menu/TotalPrice", payload: id });
   }
 
   function handleDeletePizza() {
-    dispatch({ type: "menu/deletePizza", payload: id });
+    dispatch({ type: "menu/delete", payload: id });
     dispatch({ type: "menu/removeZeroQuantity" });
+    dispatch({ type: "menu/TotalPrice", payload: id });
   }
   // function handleReduceQuantity() {
   //   // const pizzaIndex = cart.findIndex((pizza) => pizza.id === id);

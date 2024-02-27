@@ -39,6 +39,14 @@ function reducer(state, action) {
           return pizza;
         }),
       };
+    case "menu/TotalPrice":
+      return {
+        cart: state.cart.map((pizza) => {
+          if (pizza.id === action.payload)
+            return { ...pizza, totalPrice: pizza.quantity * pizza.unitPrice };
+          return { ...pizza };
+        }),
+      };
     case "menu/removeZeroQuantity":
       return {
         cart: state.cart.filter((pizza) => {
@@ -49,7 +57,8 @@ function reducer(state, action) {
     case "menu/delete":
       return {
         cart: state.cart.map((pizza) => {
-          return { ...pizza, quantity: 0 };
+          if (pizza.id === action.payload) return { ...pizza, quantity: 0 };
+          return { ...pizza };
         }),
       };
   }
@@ -61,10 +70,10 @@ function PizzaProvider({ children }) {
   function isAdded(id) {
     return cart.find((pizza) => pizza.id === id)?.quantity ?? 0;
   }
-  console.log(cart);
+  const totalBill = cart.reduce((acc, pizza) => acc + pizza.totalPrice, 0);
 
   return (
-    <PizzaContext.Provider value={{ cart, dispatch, isAdded }}>
+    <PizzaContext.Provider value={{ cart, dispatch, isAdded, totalBill }}>
       {children}
     </PizzaContext.Provider>
   );
