@@ -28,7 +28,7 @@ function Login() {
           </div>
         </form>
         <div className="bt-2 border-amber-300 flex justify-between gap-6 py-8  sm:p-0">
-          <Button to="/signUp" className="header">
+          <Button to="/signup" className="header">
             Sign up
           </Button>
           <Button to="/forgotPassword" className="header">

@@ -1,5 +1,6 @@
 import { usePizza } from "../contexts/pizzaContext";
 import CartList from "../features/cart/CartList";
+import Button from "../ui/Button";
 
 function Cart() {
   const { totalBill, cart } = usePizza();
@@ -13,10 +14,13 @@ function Cart() {
         <CartList pizza={pizza} key={pizza.id} />
       ))}
 
-      <div className="pt-8 border-t-2 border-amber-400 flex items-center justify-end gap-x-72 text-xl font-bold">
-        <h1 className="pl-56  ">Total: </h1>
+      <div className="pt-8 border-t-2 border-amber-400 flex items-center justify-end text-xl font-bold">
+        <h1>Total: </h1>
         <h1>${totalBill}</h1>
       </div>
+      <Button className="backButton" type="back">
+        Go back &#8617;
+      </Button>
     </div>
   );
 }

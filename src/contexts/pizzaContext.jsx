@@ -16,6 +16,7 @@ function reducer(state, action) {
   switch (action.type) {
     case "menu/addToCart":
       return { cart: [...state.cart, action.payload] };
+
     case "menu/addQuantity":
       return {
         cart: state.cart.map((pizza) => {
@@ -23,8 +24,8 @@ function reducer(state, action) {
           return { ...pizza, quantity: pizza.quantity++ };
         }),
       };
+
     case "menu/reduceQuantity":
-      // const filteredPeople = cart?.filter((item) => item.id !== action.payload);
       return {
         cart: state.cart.map((pizza) => {
           if (pizza.id !== action.payload) {
@@ -34,11 +35,10 @@ function reducer(state, action) {
           if (pizza.quantity > 0) {
             return { ...pizza, quantity: pizza.quantity - 1 };
           }
-
-          // If quantity is already 0, return the same pizza object
           return pizza;
         }),
       };
+
     case "menu/TotalPrice":
       return {
         cart: state.cart.map((pizza) => {
@@ -47,6 +47,7 @@ function reducer(state, action) {
           return { ...pizza };
         }),
       };
+
     case "menu/removeZeroQuantity":
       return {
         cart: state.cart.filter((pizza) => {

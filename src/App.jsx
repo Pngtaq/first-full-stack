@@ -14,6 +14,7 @@ import Cart from "./pages/Cart";
 
 import Register from "./pages/Register";
 import PageNotFound from "./pages/PageNotFound";
+import SignUp from "./pages/SignUp";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,8 +39,9 @@ function App() {
               <Route path="pricing" element={<Pricing />} />
               <Route path="about" element={<About />} />
               <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
             </Route>
-            <Route path="register" element={<Register />} />
+
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
