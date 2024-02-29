@@ -12,9 +12,10 @@ import Login from "./pages/Login";
 import Services from "./pages/Services";
 import Cart from "./pages/Cart";
 
-import Register from "./pages/Register";
 import PageNotFound from "./pages/PageNotFound";
 import SignUp from "./pages/SignUp";
+
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,8 +27,8 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <PizzaProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <PizzaProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
@@ -45,8 +46,26 @@ function App() {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
-      </QueryClientProvider>
-    </PizzaProvider>
+      </PizzaProvider>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+          },
+        }}
+      />
+    </QueryClientProvider>
   );
 }
 
